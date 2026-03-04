@@ -154,7 +154,7 @@ export default function RSVPSection() {
   return (
     <section 
       id="rsvp" 
-      className="relative py-20 px-4 md:py-32 bg-[#f7f2e8] overflow-hidden"
+      className="relative py-20 px-4 md:py-32 bg-[#f7f2e8] overflow-x-hidden touch-pan-y"
       style={{
         clipPath: 'polygon(0 0%, 100% 3%, 100% 100%, 0% 97%)',
       }}

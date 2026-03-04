@@ -260,10 +260,11 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden pt-0 touch-pan-y">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden pt-0 touch-pan-y pointer-events-auto">
       {/* Hero Section */}
       <motion.section 
         className="relative w-full overflow-x-hidden pt-0 -mt-4 touch-pan-y"
+        style={{ touchAction: 'pan-y' }}
         initial="hidden"
         animate="visible"
         variants={fastStaggerContainer}
@@ -273,7 +274,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
           variants={scaleIn}
         >
           {introFinished && (
-            <div className="relative w-full pt-0">
+            <div className="relative w-full pt-0 touch-pan-y">
               <video
                 key="invitation-video"
                 src="/invitation-design.mp4"
@@ -307,7 +308,8 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             const countdownSection = document.querySelector('section[class*="py-12"]');
             countdownSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }}
-          className="absolute bottom-14 left-2 flex flex-col items-center gap-3 z-20 cursor-pointer group"
+          className="absolute bottom-14 left-2 flex flex-col items-center gap-3 z-20 cursor-pointer group touch-pan-y pointer-events-auto"
+          style={{ touchAction: 'pan-y' }}
           initial="hidden"
           animate="visible"
           variants={flyFromLeft}
@@ -347,14 +349,14 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         
         {/* Animated floating background elements */}
         <motion.div 
-          className="absolute -left-20 top-1/4 w-64 h-64 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute -left-20 top-1/4 w-64 h-64 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
           style={{ y: pathY1 }}
         />
         <motion.div 
-          className="absolute -right-20 bottom-1/4 w-72 h-72 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute -right-20 bottom-1/4 w-72 h-72 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: 200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
@@ -364,7 +366,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
 
       {/* Countdown Section - Unique frame with diagonal cuts */}
       <section 
-        className="relative py-12 px-4 md:py-16 overflow-hidden"
+        className="relative py-12 px-4 md:py-16 overflow-x-hidden touch-pan-y"
         style={{
           clipPath: 'polygon(0 5%, 100% 0%, 100% 95%, 0% 100%)',
         }}
@@ -529,7 +531,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         <HandwrittenMessage />
       </section>
 
-      <section id="rsvp" className="py-16">
+      <section id="rsvp" className="py-16 overflow-x-hidden">
         <RSVPSection />
       </section>
 

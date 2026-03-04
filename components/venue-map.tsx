@@ -26,7 +26,7 @@ export default function VenueMap() {
         <div className="relative group">
           <div className={`absolute -inset-1 bg-[#f7f2e8] rounded-3xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500 ${isRTL ? 'rtl' : ''}`} />
           
-            <div className="relative w-full aspect-video min-h-[250px] rounded-2xl overflow-hidden border-2 border-foreground/10 shadow-2xl transition-all duration-300 transform hover:scale-[1.02] cursor-pointer bg-white touch-pan-y">            <div 
+            <div className="relative w-full aspect-video min-h-[250px] rounded-2xl overflow-x-hidden border-2 border-foreground/10 shadow-2xl transition-all duration-300 transform hover:scale-[1.02] cursor-pointer bg-white touch-pan-y">            <div 
               className="relative w-full h-full min-h-[250px]"
               onClick={handleMapClick}
               role="button"

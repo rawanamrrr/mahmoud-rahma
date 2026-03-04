@@ -239,11 +239,15 @@ export default function HandwrittenMessage() {
       }
     }
     
-    e.preventDefault();
     if (!canvasRef.current) return;
     
     const coords = getCanvasCoordinates('touches' in e ? e.touches[0] : e.nativeEvent);
     if (!coords) return;
+    
+    // Only prevent default if we actually intend to start drawing
+    if (!isDrawing) {
+      e.preventDefault();
+    }
     
     // Save the current canvas state before we start drawing
     const ctx = canvasRef.current.getContext('2d');
@@ -289,8 +293,11 @@ export default function HandwrittenMessage() {
       }
     }
     
-    e.preventDefault();
     if (!isDrawing || !canvasRef.current) return;
+    
+    if (isDrawing) {
+      e.preventDefault();
+    }
     
     const coords = getCanvasCoordinates('touches' in e ? e.touches[0] : e.nativeEvent);
     if (!coords) return;

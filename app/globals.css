@@ -180,6 +180,9 @@
     @apply text-foreground font-medium;
     background-color: var(--background);
     position: relative;
+    touch-action: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden !important;
   }
 
   body::before {
