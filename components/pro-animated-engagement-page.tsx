@@ -216,7 +216,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
 
     if (typeof window !== 'undefined') {
       const staticImg = new window.Image();
-      staticImg.src = "/invitation-design.png";
+      staticImg.src = "/preview.jpg";
       staticImg.onload = () => {
         console.log('✅ Image preloaded and cached');
         setGifPreloaded(true);
@@ -287,7 +287,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
                 setImageLoaded(true);
                 onImageLoad?.();
               }}
-              poster="/invitation-design.png"
+              poster="/preview.jpg"
             />
 
             {/* Minimal loading state */}

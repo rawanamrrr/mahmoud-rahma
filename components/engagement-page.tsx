@@ -28,7 +28,7 @@ export default function EngagementPage() {
             autoPlay
             muted
             playsInline
-            poster="/invitation-design.png"
+            poster="/preview.jpg"
           />
         </div>
       </section>

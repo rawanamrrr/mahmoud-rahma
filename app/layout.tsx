@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     description: "Join us in celebrating Mahmoud & Rahma's wedding",
     images: [
       {
-        url: "https://mahmoud-rahma.digitivaa.com/invitation-design.png?t=20241220v2",
-        width: 768,
-        height: 1365,
+        url: "https://mahmoud-rahma.digitivaa.com/preview.jpg",
+        width: 1200,
+        height: 630,
         alt: "Mahmoud & Rahma Wedding Invitation",
       },
     ],
@@ -42,11 +42,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mahmoud & Rahma - Wedding Celebration",
     description: "Join us in celebrating Mahmoud & Rahma's wedding",
-    images: ["https://mahmoud-rahma.digitivaa.com/invitation-design.png?t=20241220"],
+    images: ["https://mahmoud-rahma.digitivaa.com/preview.jpg"],
   },
   icons: {
-    icon: "/invitation-design.png",
-    apple: "/invitation-design.png",
+    icon: "/preview.jpg",
+    apple: "/preview.jpg",
   },
 }
 
@@ -61,20 +61,20 @@ export default function RootLayout({
         {/* WhatsApp & Facebook Open Graph tags - MUST be explicit for WhatsApp */}
         {/* 
           IMPORTANT: WhatsApp requirements:
-          - File size: MUST be under 300 KB (check your invitation-design.png file size!)
+          - File size: MUST be under 300 KB (check your preview.jpg file size!)
           - Recommended dimensions: 1200x630px (landscape) for best results
-          - Current: 768x1365px (portrait) - may work but not optimal
-          - Format: PNG or JPEG (not WebP)
+          - Current: 1200x630px (landscape) - optimal for WhatsApp/Facebook
+          - Format: JPEG (not WebP)
         */}
         <meta property="og:url" content="https://mahmoud-rahma.digitivaa.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Mahmoud & Rahma - Wedding Celebration" />
         <meta property="og:description" content="Join us in celebrating Mahmoud & Rahma's wedding" />
-        <meta property="og:image" content="https://mahmoud-rahma.digitivaa.com/invitation-design.png?t=20241220v2" />
-        <meta property="og:image:secure_url" content="https://mahmoud-rahma.digitivaa.com/invitation-design.png?t=20241220v2" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="768" />
-        <meta property="og:image:height" content="1365" />
+        <meta property="og:image" content="https://mahmoud-rahma.digitivaa.com/preview.jpg" />
+        <meta property="og:image:secure_url" content="https://mahmoud-rahma.digitivaa.com/preview.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Mahmoud & Rahma Wedding Invitation" />
         <meta property="og:site_name" content="Mahmoud & Rahma Wedding" />
         <meta property="og:locale" content="en_US" />
@@ -83,8 +83,15 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Mahmoud & Rahma - Wedding Celebration" />
         <meta name="twitter:description" content="Join us in celebrating Mahmoud & Rahma's wedding" />
-        <meta name="twitter:image" content="https://mahmoud-rahma.digitivaa.com/invitation-design.png?t=20241220v2" />
+        <meta name="twitter:image" content="https://mahmoud-rahma.digitivaa.com/preview.jpg" />
         
+        {/* Preload preview.jpg for social sharing */}
+        <link
+          rel="preload"
+          href="/preview.jpg"
+          as="image"
+          type="image/jpeg"
+        />
         {/* Preload PNG with high priority to eliminate lag on Netlify */}
         <link
           rel="preload"
