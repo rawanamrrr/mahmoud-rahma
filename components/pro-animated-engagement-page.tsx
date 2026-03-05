@@ -37,7 +37,7 @@ const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { 
+    transition: {
       duration: 0.8,
       ease: [0.22, 1, 0.36, 1] as const
     }
@@ -75,8 +75,8 @@ const slideFromLeft: Variants = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { 
-      duration: 1.2, 
+    transition: {
+      duration: 1.2,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 80,
@@ -91,8 +91,8 @@ const slideFromRight: Variants = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { 
-      duration: 1.2, 
+    transition: {
+      duration: 1.2,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 80,
@@ -109,8 +109,8 @@ const flyFromLeft: Variants = {
     opacity: 1,
     scale: 1,
     rotate: 0,
-    transition: { 
-      duration: 1.4, 
+    transition: {
+      duration: 1.4,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 60,
@@ -127,8 +127,8 @@ const flyFromRight: Variants = {
     opacity: 1,
     scale: 1,
     rotate: 0,
-    transition: { 
-      duration: 1.4, 
+    transition: {
+      duration: 1.4,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 60,
@@ -145,8 +145,8 @@ const floatFromLeft: Variants = {
     y: 0,
     opacity: 1,
     scale: 1,
-    transition: { 
-      duration: 1.5, 
+    transition: {
+      duration: 1.5,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 70,
@@ -163,8 +163,8 @@ const floatFromRight: Variants = {
     y: 0,
     opacity: 1,
     scale: 1,
-    transition: { 
-      duration: 1.5, 
+    transition: {
+      duration: 1.5,
       ease: [0.16, 1, 0.3, 1] as const,
       type: "spring",
       stiffness: 70,
@@ -260,56 +260,58 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20 overflow-x-hidden pt-0 touch-pan-y pointer-events-auto">
+    <div className="bg-gradient-to-b from-background via-background to-secondary/20 pt-0">
       {/* Hero Section */}
-      <motion.section 
-        className="relative w-full overflow-x-hidden pt-0 -mt-4 touch-pan-y"
-        style={{ touchAction: 'pan-y' }}
+      <motion.section
+        className="relative w-full pt-0 -mt-4"
         initial="hidden"
         animate="visible"
         variants={fastStaggerContainer}
       >
-        <motion.div 
+        <motion.div
           className="relative w-full z-10 pt-0"
           variants={scaleIn}
         >
-          {introFinished && (
-            <div className="relative w-full pt-0 touch-pan-y">
-              <video
-                key="invitation-video"
-                src="/invitation-design.mp4"
-                className="w-full h-auto object-contain pointer-events-none"
-                autoPlay
-                muted
-                playsInline
-                onLoadedData={handleImageLoad}
-                poster="/invitation-design.png"
-              />
-              
-              {/* Minimal loading state */}
-              {!imageLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center pointer-events-none">
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-sm text-muted-foreground">{t('loading')}</span>
-                  </div>
+          {/* Always render the video so it preloads and takes up vertical space; only make visible when introFinished */}
+          <div className={`relative w-full pt-0 transition-opacity duration-1000 ${introFinished ? 'opacity-100' : 'opacity-0'}`}>
+            <video
+              key="invitation-video"
+              src="/invitation-design.mp4"
+              className="w-full h-auto object-contain pointer-events-none"
+              autoPlay
+              muted
+              playsInline
+              onLoadedData={handleImageLoad}
+              onError={() => {
+                // Fallback: show the poster image
+                setImageLoaded(true);
+                onImageLoad?.();
+              }}
+              poster="/invitation-design.png"
+            />
+
+            {/* Minimal loading state */}
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center pointer-events-none">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-sm text-muted-foreground">{t('loading')}</span>
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </motion.div>
-        
+
         <div className="mt-6 w-full max-w-2xl mx-auto text-center px-4">
         </div>
-        
+
         {/* Scroll Down Indicator - Flying from left */}
         <motion.button
           onClick={() => {
             const countdownSection = document.querySelector('section[class*="py-12"]');
             countdownSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }}
-          className="absolute bottom-14 left-2 flex flex-col items-center gap-3 z-20 cursor-pointer group touch-pan-y pointer-events-auto"
-          style={{ touchAction: 'pan-y' }}
+          className="absolute bottom-14 left-2 flex flex-col items-center gap-3 z-20 cursor-pointer group"
           initial="hidden"
           animate="visible"
           variants={flyFromLeft}
@@ -324,17 +326,17 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
           </div>
           <motion.div
             animate={{ y: [0, 12, 0] }}
-            transition={{ 
-              duration: 1.2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
             className="bg-accent/90 p-2 rounded-full shadow-lg group-hover:bg-accent transition-colors"
           >
-            <svg 
-              className="w-8 h-8 text-white" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
               strokeWidth={2.5}
             >
@@ -346,16 +348,16 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             </svg>
           </motion.div>
         </motion.button>
-        
+
         {/* Animated floating background elements */}
-        <motion.div 
+        <motion.div
           className="absolute -left-20 top-1/4 w-64 h-64 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
           style={{ y: pathY1 }}
         />
-        <motion.div 
+        <motion.div
           className="absolute -right-20 bottom-1/4 w-72 h-72 bg-[#f7f2e8] rounded-full mix-blend-multiply filter blur-3xl pointer-events-none"
           initial={{ x: 200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -365,8 +367,8 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       </motion.section>
 
       {/* Countdown Section - Unique frame with diagonal cuts */}
-      <section 
-        className="relative py-12 px-4 md:py-16 overflow-x-hidden touch-pan-y"
+      <section
+        className="relative py-12 px-4 md:py-16"
         style={{
           clipPath: 'polygon(0 5%, 100% 0%, 100% 95%, 0% 100%)',
         }}
@@ -374,7 +376,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#f7f2e8] rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#f7f2e8] rounded-full blur-3xl" />
-        
+
         <div className="relative max-w-6xl mx-auto text-center">
           <div className="inline-flex flex-col items-center mb-16">
             <div className="flex items-center justify-center gap-4 mb-8">
@@ -399,7 +401,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
       </section>
 
       {/* Venue & RSVP Section - Asymmetric frame */}
-      <motion.section 
+      <motion.section
         className="relative py-20 px-4 md:py-32 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
         initial="hidden"
         whileInView="visible"
@@ -410,26 +412,26 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         }}
       >
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             className="text-center mb-20"
             variants={fastStaggerContainer}
           >
             <motion.div className="flex items-center justify-center gap-4 mb-8" variants={floatFromLeft}>
-              <motion.div 
+              <motion.div
                 className="w-32 h-px bg-gradient-to-r from-transparent via-accent to-accent"
                 initial={{ scaleX: 0, originX: 1 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: 0.2 }}
               />
-              <motion.div 
+              <motion.div
                 className="w-3 h-3 rotate-45 bg-accent"
                 initial={{ scale: 0, rotate: -180 }}
                 whileInView={{ scale: 1, rotate: 45 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
               />
-              <motion.div 
+              <motion.div
                 className="w-32 h-px bg-gradient-to-r from-accent via-accent to-transparent"
                 initial={{ scaleX: 0, originX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -531,7 +533,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
         <HandwrittenMessage />
       </section>
 
-      <section id="rsvp" className="py-16 overflow-x-hidden">
+      <section id="rsvp" className="py-16">
         <RSVPSection />
       </section>
 
@@ -555,6 +557,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
             src="/middle-invitation.jpg"
             alt="Invitation"
             className="w-full h-auto object-contain rounded-2xl"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
         </div>
       </section>
@@ -578,6 +581,7 @@ export default function ProAnimatedEngagementPage({ onImageLoad, introFinished }
               src="/harry-potter.png"
               alt="Footer"
               className="mx-auto max-w-[280px] sm:max-w-md w-full h-auto"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
           </motion.div>
         </div>

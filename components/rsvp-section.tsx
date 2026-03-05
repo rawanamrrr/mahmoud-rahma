@@ -41,7 +41,7 @@ export default function RSVPSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Validation
     if (!name.trim()) {
       setMessage({ text: t('rsvpError'), type: 'error' })
@@ -101,7 +101,7 @@ export default function RSVPSection() {
 
       const contentType = response.headers.get('content-type') || ''
       let responseData: any = null
-      
+
       if (contentType.includes('application/json')) {
         try {
           responseData = await response.json()
@@ -129,22 +129,22 @@ export default function RSVPSection() {
         throw new Error(responseData.message || 'RSVP submission failed')
       }
 
-      setMessage({ 
+      setMessage({
         text: t('rsvpSuccess'),
         type: 'success' as const
       })
-      
+
       // Reset form
       setName('')
       setAttending('')
       setGuests('1')
       setGuestNames([''])
-      
+
     } catch (error) {
       console.error('Error submitting RSVP:', error)
-      setMessage({ 
-        text: error instanceof Error ? error.message : t('rsvpError'), 
-        type: 'error' 
+      setMessage({
+        text: error instanceof Error ? error.message : t('rsvpError'),
+        type: 'error'
       })
     } finally {
       setIsSubmitting(false)
@@ -152,22 +152,22 @@ export default function RSVPSection() {
   }
 
   return (
-    <section 
-      id="rsvp" 
-      className="relative py-20 px-4 md:py-32 bg-[#f7f2e8] overflow-x-hidden touch-pan-y"
+    <section
+      id="rsvp"
+      className="relative py-20 px-4 md:py-32 bg-[#f7f2e8] overflow-x-hidden"
       style={{
         clipPath: 'polygon(0 0%, 100% 3%, 100% 100%, 0% 97%)',
       }}
     >
       {/* Decorative background elements */}
-      <motion.div 
+      <motion.div
         className="absolute top-0 left-0 w-96 h-96 bg-[#f7f2e8] rounded-full blur-3xl"
         initial={{ x: -300, opacity: 0, scale: 0.5 }}
         whileInView={{ x: 0, opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.8, ease: "easeOut" }}
       />
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 right-0 w-96 h-96 bg-[#f7f2e8] rounded-full blur-3xl"
         initial={{ x: 300, opacity: 0, scale: 0.5 }}
         whileInView={{ x: 0, opacity: 1, scale: 1 }}
@@ -176,7 +176,7 @@ export default function RSVPSection() {
       />
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -184,7 +184,7 @@ export default function RSVPSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Decorative elements */}
-          <motion.div 
+          <motion.div
             className="flex items-center justify-center gap-4 mb-8"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -192,14 +192,14 @@ export default function RSVPSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-accent to-accent" />
-            <motion.svg 
-              className="w-6 h-6 text-accent" 
-              fill="currentColor" 
+            <motion.svg
+              className="w-6 h-6 text-accent"
+              fill="currentColor"
               viewBox="0 0 24 24"
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </motion.svg>
             <div className="w-24 h-px bg-gradient-to-l from-transparent via-accent to-accent" />
           </motion.div>
@@ -207,9 +207,9 @@ export default function RSVPSection() {
           <h2 className="font-luxury text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 tracking-wide">{t('rsvpTitle')}</h2>
           <p className="font-luxury text-lg md:text-xl text-muted-foreground mb-8 italic max-w-2xl mx-auto">{t('rsvpDescription')}</p>
         </motion.div>
-        
+
         {/* Elegant form card */}
-        <motion.div 
+        <motion.div
           className="relative bg-gradient-to-br from-card/95 via-card/90 to-accent/10 backdrop-blur-sm border-4 border-accent/40 p-8 md:p-12 shadow-2xl"
           initial={{ scale: 0.95, opacity: 0, y: 50 }}
           whileInView={{ scale: 1, opacity: 1, y: 0 }}
@@ -228,7 +228,7 @@ export default function RSVPSection() {
             transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
           >
             <svg className="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </motion.div>
           <motion.div
@@ -239,7 +239,7 @@ export default function RSVPSection() {
             transition={{ duration: 0.6, delay: 0.3, type: "spring" }}
           >
             <svg className="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </motion.div>
           <motion.div
@@ -250,7 +250,7 @@ export default function RSVPSection() {
             transition={{ duration: 0.6, delay: 0.4, type: "spring" }}
           >
             <svg className="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </motion.div>
           <motion.div
@@ -261,7 +261,7 @@ export default function RSVPSection() {
             transition={{ duration: 0.6, delay: 0.5, type: "spring" }}
           >
             <svg className="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </motion.div>
 
@@ -300,11 +300,10 @@ export default function RSVPSection() {
                 <button
                   type="button"
                   onClick={() => setAttending('yes')}
-                  className={`px-4 py-2 rounded-lg border-2 font-luxury transition-all ${
-                    attending === 'yes'
+                  className={`px-4 py-2 rounded-lg border-2 font-luxury transition-all ${attending === 'yes'
                       ? 'bg-accent text-white border-accent shadow-md'
                       : 'bg-background/50 text-foreground border-accent/30 hover:border-accent/60'
-                  }`}
+                    }`}
                   disabled={isSubmitting}
                 >
                   {language === 'ar' ? 'سأحضر' : 'Attending'}
@@ -312,11 +311,10 @@ export default function RSVPSection() {
                 <button
                   type="button"
                   onClick={() => setAttending('no')}
-                  className={`px-4 py-2 rounded-lg border-2 font-luxury transition-all ${
-                    attending === 'no'
+                  className={`px-4 py-2 rounded-lg border-2 font-luxury transition-all ${attending === 'no'
                       ? 'bg-accent text-white border-accent shadow-md'
                       : 'bg-background/50 text-foreground border-accent/30 hover:border-accent/60'
-                  }`}
+                    }`}
                   disabled={isSubmitting}
                 >
                   {language === 'ar' ? 'لن أتمكن من الحضور' : 'Not attending'}
@@ -396,14 +394,13 @@ export default function RSVPSection() {
             </motion.div>
 
             {message.text && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`mt-4 p-4 rounded-lg text-center font-luxury ${
-                  message.type === 'error' ? 'bg-red-100/80 text-red-700 border-2 border-red-300' : 
-                  message.type === 'info' ? 'bg-blue-100/80 text-blue-700 border-2 border-blue-300' : 
-                  'bg-green-100/80 text-green-700 border-2 border-green-300'
-                }`}
+                className={`mt-4 p-4 rounded-lg text-center font-luxury ${message.type === 'error' ? 'bg-red-100/80 text-red-700 border-2 border-red-300' :
+                    message.type === 'info' ? 'bg-blue-100/80 text-blue-700 border-2 border-blue-300' :
+                      'bg-green-100/80 text-green-700 border-2 border-green-300'
+                  }`}
               >
                 {message.text}
               </motion.div>

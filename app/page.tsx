@@ -13,7 +13,7 @@ const VideoIntro = dynamic(() => import("@/components/video-intro"), {
 // Dynamically import the main content to ensure it's loaded only when needed
 const ProAnimatedEngagementPage = dynamic(
   () => import("@/components/pro-animated-engagement-page"),
-  { 
+  {
     ssr: false,
     loading: () => <div className="min-h-screen bg-background flex items-center justify-center"><div className="text-foreground">Loading...</div></div>
   }
@@ -54,18 +54,18 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen relative overflow-x-hidden touch-pan-y">
+    <main className="relative">
       {!introFinished && (
         <div className="fixed inset-0 z-[9999] bg-black">
-          <VideoIntro 
-            onComplete={handleIntroFinish} 
-            onSkip={handleIntroFinish} 
+          <VideoIntro
+            onComplete={handleIntroFinish}
+            onSkip={handleIntroFinish}
           />
         </div>
       )}
-      
+
       {/* Main Content */}
-      <div className={`w-full transition-opacity duration-500 ${introFinished ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`w-full transition-opacity duration-500 ${introFinished ? 'opacity-100' : 'opacity-0'}`}>
         <ProAnimatedEngagementPage onImageLoad={handleImageLoad} introFinished={introFinished} />
       </div>
     </main>

@@ -9,7 +9,6 @@ interface VideoIntroProps {
 
 export default function VideoIntro({ onComplete, onSkip }: VideoIntroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const touchStartYRef = useRef<number | null>(null);
   const hasSkippedRef = useRef(false);
 
   useEffect(() => {
@@ -19,7 +18,11 @@ export default function VideoIntro({ onComplete, onSkip }: VideoIntroProps) {
     // Simple autoplay attempt - let the browser handle it
     const playVideo = () => {
       video.play().catch(() => {
-        // Autoplay blocked - browser will handle it
+        // Autoplay blocked - call onComplete so the site still loads
+        if (!hasSkippedRef.current) {
+          hasSkippedRef.current = true;
+          onComplete();
+        }
       });
     };
 
@@ -29,56 +32,48 @@ export default function VideoIntro({ onComplete, onSkip }: VideoIntroProps) {
     } else {
       video.addEventListener('canplay', playVideo, { once: true });
     }
-  }, []);
+  }, [onComplete]);
+
+  const handleSkip = () => {
+    if (hasSkippedRef.current) return;
+    hasSkippedRef.current = true;
+    onSkip();
+  };
 
   return (
-    <div 
-      className="fixed inset-0 bg-black flex items-center justify-center z-[9999]"
-      onClick={onSkip}
-      onTouchStart={(e) => {
-        if (e.touches.length > 0) touchStartYRef.current = e.touches[0].clientY;
-      }}
-      onTouchMove={(e) => {
-        if (hasSkippedRef.current) return;
-        if (e.touches.length === 0) return;
-
-        const startY = touchStartYRef.current;
-        const currentY = e.touches[0].clientY;
-
-        if (startY === null) {
-          touchStartYRef.current = currentY;
-          return;
-        }
-
-        const deltaY = currentY - startY;
-
-        if (Math.abs(deltaY) >= 12) {
-          hasSkippedRef.current = true;
-          onSkip();
-        }
-      }}
-      onWheel={() => {
-        if (hasSkippedRef.current) return;
-        hasSkippedRef.current = true;
-        onSkip();
-      }}
+    <div
+      className="fixed inset-0 bg-black flex items-center justify-center z-[9999] cursor-pointer"
+      onClick={handleSkip}
     >
       <div className="w-full h-full flex items-center justify-center bg-black">
-        <video 
+        <video
           ref={videoRef}
           className="h-auto max-h-full w-auto max-w-full object-contain"
           playsInline={true}
           muted={true}
           autoPlay={true}
-          onEnded={() => {}}
+          onEnded={() => {
+            if (!hasSkippedRef.current) {
+              hasSkippedRef.current = true;
+              onComplete();
+            }
+          }}
           preload="auto"
           disablePictureInPicture
-          loop={true}
+          loop={false}
         >
-        <source src="/engagement-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+          <source src="/engagement-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </div>
+
+      {/* Skip button - clean and always visible */}
+      <button
+        onClick={handleSkip}
+        className="absolute bottom-8 right-8 px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/35 text-white text-sm font-medium backdrop-blur-sm border border-white/30 transition-all duration-200 z-10"
+      >
+        Skip ›
+      </button>
     </div>
   );
 }

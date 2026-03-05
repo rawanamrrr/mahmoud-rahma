@@ -37,7 +37,7 @@ export default function WeddingTimeline() {
   const { isRTL } = useLanguage()
 
   return (
-    <section className="relative py-20 px-4 md:py-32 bg-[#f7f2e8] touch-pan-y">
+    <section className="relative py-20 px-4 md:py-32 bg-[#f7f2e8]">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div
@@ -104,7 +104,7 @@ export default function WeddingTimeline() {
         </div>
 
         {/* Footer Decoration */}
-        <motion.div 
+        <motion.div
           className="mt-20 flex justify-center opacity-40"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

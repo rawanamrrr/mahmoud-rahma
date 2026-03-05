@@ -17,29 +17,29 @@
     font-family: 'Dancing Script', cursive, "Comic Sans MS", "Comic Sans", cursive;
     line-height: 1.6;
   }
-  
+
   .font-luxury {
     font-family: 'Cormorant Garamond', serif;
     letter-spacing: 0.02em;
   }
-  
+
   .font-elegant {
     font-family: 'Cinzel', serif;
     letter-spacing: 0.05em;
   }
-  
+
   .luxury-gradient {
     background: linear-gradient(135deg, #d4af37 0%, #f4e5c2 50%, #d4af37 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .gold-shimmer {
     position: relative;
     overflow: hidden;
   }
-  
+
   .gold-shimmer::before {
     content: '';
     position: absolute;
@@ -50,7 +50,7 @@
     background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
     animation: shimmer 3s infinite;
   }
-  
+
   @keyframes shimmer {
     to {
       left: 100%;
@@ -60,7 +60,8 @@
 
 :root {
   /* Elegant sage and cream palette */
-  --background: #f7f2e8; /* Updated background color */
+  --background: #f7f2e8;
+  /* Updated background color */
   --foreground: #5a3f35;
   --card: #f3eee7;
   --card-foreground: #5a3f35;
@@ -88,11 +89,16 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.92 0.08 350);   /* pastel pink */
-  --chart-2: oklch(0.9 0.06 10);     /* light rose */
-  --chart-3: oklch(0.9 0.05 30);     /* peachy pink */
-  --chart-4: oklch(0.93 0.04 330);   /* very light pink */
-  --chart-5: oklch(0.94 0.03 280);   /* soft lilac accent */
+  --chart-1: oklch(0.92 0.08 350);
+  /* pastel pink */
+  --chart-2: oklch(0.9 0.06 10);
+  /* light rose */
+  --chart-3: oklch(0.9 0.05 30);
+  /* peachy pink */
+  --chart-4: oklch(0.93 0.04 330);
+  /* very light pink */
+  --chart-5: oklch(0.94 0.03 280);
+  /* soft lilac accent */
 }
 
 .dark {
@@ -176,13 +182,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   body {
     @apply text-foreground font-medium;
     background-color: var(--background);
-    position: relative;
-    touch-action: auto !important;
     -webkit-overflow-scrolling: touch;
-    overflow-x: hidden !important;
   }
 
   body::before {
